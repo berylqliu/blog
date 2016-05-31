@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source venv/bin/activate
+execfile=venv/bin/gunicorn
+
+pidfile=/var/sankuai/cadvisor.pid
+logfile=/var/sankuai/logs/cadvisor.log
+
+exec setuidgid sankuai $execfile --pid $pidfile \
+     run:app -c gunicorn_config.py >> $logfile 2>&1
